@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Quick Question...</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0d0d0d;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: #161616;
+            border: 1px solid #2a2a2a;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            padding: 40px 30px;
+            border-radius: 20px;
+            max-width: 450px;
+            width: 100%;
+            position: relative;
+        }
+
+        .page {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .page.active {
+            display: flex;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #eaeaea;
+            line-height: 1.4;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin-top: 10px;
+            position: relative;
+            min-height: 60px;
+        }
+
+        button {
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        .btn-yes {
+            background-color: #ff4d6d;
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3);
+        }
+
+        .btn-yes:hover {
+            background-color: #ff758f;
+            transform: scale(1.05);
+        }
+
+        .btn-no {
+            background-color: #2a2a2a;
+            color: #b0b0b0;
+            border: 1px solid #3a3a3a;
+            position: relative;
+            z-index: 10;
+        }
+
+        .goodbye-text {
+            color: #a0a0a0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .emoji {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- PAGE 1 -->
+        <div class="page active" id="page1">
+            <div class="emoji">🥺</div>
+            <h1>Tumhe Mai bohot paresaan karta Hun na?</h1>
+            <div class="btn-group">
+                <button class="btn-yes" onclick="nextPage(2)">Yes</button>
+                <button class="btn-no" onmouseover="moveNoButton(this)" onclick="moveNoButton(this)" ontouchstart="moveNoButton(this)">No</button>
+            </div>
+        </div>
+
+        <!-- PAGE 2 -->
+        <div class="page" id="page2">
+            <div class="emoji">📲</div>
+            <h1>Mai Tumhe force karta Hun na baat Karne ke liye?</h1>
+            <div class="btn-group">
+                <button class="btn-yes" onclick="nextPage(3)">Yes</button>
+                <button class="btn-no" onmouseover="moveNoButton(this)" onclick="moveNoButton(this)" ontouchstart="moveNoButton(this)">No</button>
+            </div>
+        </div>
+
+        <!-- PAGE 3 -->
+        <div class="page" id="page3">
+            <div class="emoji">💔</div>
+            <h1>You hate me right?</h1>
+            <div class="btn-group">
+                <button class="btn-yes" onclick="nextPage(4)">Yes</button>
+                <button class="btn-no" onmouseover="moveNoButton(this)" onclick="moveNoButton(this)" ontouchstart="moveNoButton(this)">No</button>
+            </div>
+        </div>
+
+        <!-- PAGE 4 (FINAL PAGE) -->
+        <div class="page" id="page4">
+            <div class="emoji">🖤</div>
+            <h1>I knew it...</h1>
+            <p class="goodbye-text">
+                Sorry for coming in your life.<br>
+                Good bye! I will never annoy you and disturb you again. 🥀
+            </p>
+        </div>
+
+    </div>
+
+    <script>
+        function nextPage(pageNumber) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // Show current target page
+            const targetPage = document.getElementById('page' + pageNumber);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+        }
+
+        function moveNoButton(button) {
+            // Set fixed positioning when hovered/tapped to break out of layout
+            button.style.position = 'fixed';
+
+            // Calculate safe bounds within the viewport
+            const padding = 20;
+            const maxX = window.innerWidth - button.offsetWidth - padding;
+            const maxY = window.innerHeight - button.offsetHeight - padding;
+
+            const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
+
+            button.style.left = randomX + 'px';
+            button.style.top = randomY + 'px';
+        }
+    </script>
+</body>
+  </html>
+  
